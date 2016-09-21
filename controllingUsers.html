@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+  <head>
+    <meta charset="utf-8">
+    <script src = 'bower_components/angular/angular.js'></script>
+
+    <script type="text/javascript">
+      var app = angular.module('app', []);
+
+      app.controller("usersController", ['$scope', function($scope){
+        $scope.users = [
+          {first_name: 'Tom', last_name: 'Sawyer', favorite_language: 'Spanish'},
+          {first_name: 'Earl', last_name: 'Gray', favorite_language: 'English'},
+          {first_name: 'Harry', last_name: 'Potter', favorite_language: 'Dutch'}
+        ]
+
+        $scope.addUser = function(){
+          $scope.users.push($scope.user);
+          $scope.user= {};
+        }
+
+        $scope.deleteUser = function(val){
+          $scope.users.splice(val, 1)
+        }
+      }]);
+
+    </script>
+
+
+    <title></title>
+  </head>
+
+
+  <body>
+    <div ng-controller='usersController'>
+      <br>
+      <form>
+        <input type="text" ng-model='user.first_name' placeholder="First Name">
+        <input type="text" ng-model='user.last_name' placeholder="Last Name">
+        <input type="text" ng-model='user.favorite_language' placeholder="Favorite Language">
+        <input type="submit" value="Create User" ng-click= "addUser()">
+      </form>
+      <br>
+      <div id ='model' ng-if = "user">
+        <p>
+          Currently typing:
+          <span> {{ user.first_name }}</span>
+        </p>
+      </div>
+
+        <table>
+          <tr>
+            <th>First Name</th>
+            <th>| Last Name</th>
+            <th>| Favorite Language</th>
+            <th>| Actions</th>
+          </tr>
+          <tr ng-repeat='user in users track by $index'>
+
+
+            <td style="color: color">| {{ user.first_name }} </td>
+            <td>| {{ user.last_name }}</td>
+            <td>| {{ user.favorite_language }}</td>
+            <td><button type="button" ng-click='deleteUser($index)'>Delete User</button></td>
+
+          </tr>
+        </table>
+
+
+
+    </div>
+
+
+  </body>
+</html>
